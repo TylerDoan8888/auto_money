@@ -15,7 +15,7 @@ TAI_BBOX = (775, 670, 990, 720)   # vùng tiền cược Tài
 XIU_BBOX = (1055, 670, 1270, 720) # vùng tiền cược Xỉu
 
 # Vùng theo dõi tiền tài khoản để biết win/lose
-ACCOUNT_BBOX = (300, 200, 530, 240)
+ACCOUNT_BBOX = (315, 200, 530, 245)
 
 # Vùng đồng hồ đếm ngược
 CLOCK_BBOX = (220, 420, 430, 570)
@@ -108,7 +108,7 @@ def fast_click_absolute(x, y, times=1):
         input_event = INPUT(ctypes.c_ulong(0), ii)
         SendInput(1, ctypes.pointer(input_event), ctypes.sizeof(input_event))
 
-        time.sleep(0.002)  # delay 2ms
+        time.sleep(0.0005)  # delay 0.5ms
 
 # ==== Hàm click theo bên Tài/Xỉu ====
 def click_side(side: str, times: int):
@@ -133,7 +133,7 @@ def process_result(game_no: int):
             print("👉 Bạn LOSE ")
             martingale_level *= 2
         else:
-            print("👉 Không thay đổi số dư, có thể hoà hoặc miss OCR")
+            print("👉 Không thay đổi số dư")
     last_balance = current_balance
 
 def process_money(game_no: int):
@@ -155,7 +155,6 @@ def process_money(game_no: int):
             bet_side = big_side
 
         click_side(bet_side, martingale_level)
-        print(f"👉 Cược THEO ({bet_side})")
 
 # ========== VÒNG LẶP ==========
 def wait_for_target_time():
